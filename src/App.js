@@ -32,7 +32,7 @@ export function Board({ xIsNext, squares, onPlay }) {
         <Square key={index} value={squares[index]} onSquareClick={() => handleClick(index)} />
       )
     }
-    boardSquares.push(<div className="board-row">{row}</div>)
+    boardSquares.push(<div key={i} className="board-row">{row}</div>)
   }
 
   return (
@@ -46,6 +46,7 @@ export function Board({ xIsNext, squares, onPlay }) {
 export default function Game() {
   const [history, setHistory] = useState([Array(9).fill(null)])
   const [currentMove, setCurrentMove] = useState(0)
+  const [sortAsc, setSortAsc] = useState(true)
   const xIsNext = currentMove % 2 === 0
 
   const currentSquares = history[currentMove]
@@ -71,12 +72,19 @@ export default function Game() {
     )
   })
 
+  if(!sortAsc) {
+    moves.reverse()
+  }
+
   return(
     <div className="game">
       <div className="game-board">
         <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay}/>
       </div>
       <div className="game-info">
+        <button onClick={() => setSortAsc(prevState => !prevState)}>
+          Sort {sortAsc ? 'descending' : 'ascending'}
+        </button>
         <ol>{moves}</ol>
       </div>
     </div>
