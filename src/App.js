@@ -38,7 +38,12 @@ export function Board({ xIsNext, squares, onPlay }) {
     for (let j = 0; j < 3; j++) {
       const index = i * 3 + j
       row.push(
-        <Square key={index} value={squares[index]} onSquareClick={() => handleClick(index)} isWinnerSquare={winnerSquares.includes(index) ? true : false}/>
+        <Square 
+          key={index} 
+          value={squares[index]} 
+          onSquareClick={() => handleClick(index)} 
+          isWinnerSquare={winnerSquares.includes(index) ? true : false}
+        />
       )
     }
     boardSquares.push(<div key={i} className="board-row">{row}</div>)
